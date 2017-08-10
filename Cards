@@ -1,0 +1,71 @@
+/* Sarah E. Bean
+* This program displays three cards randomly from a deck of 52, 
+* after added to an array and shuffled using java.util.Collections.shuffle. 
+* The card image files are named 1.png, 2.png, …, 52.png and stored 
+* in the image/card file in the bin. After the sort, the 3 numbers
+* will have to be concatinated with .png. 
+*/
+ 
+ 
+import java.util.ArrayList;
+import java.util.Arrays;
+ 
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
+ 
+import javafx.stage.Stage;
+import javafx.geometry.Insets;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+ 
+public class Cards extends Application {
+
+	@Override
+	public void start(Stage primaryStage) {
+
+		// create card array
+		Integer[] cardArray = new Integer[52];
+
+		// for loop to assign numbers of cards (1 to 52)
+		for (int i = 1; i < 53; i++) {
+			//initialize array at 0
+			cardArray[i - 1] = i;
+		}
+
+		// create an ArrayList to hold cards;
+		ArrayList<Integer> list = new ArrayList<>(Arrays.asList(cardArray));
+
+		// shuffle the list as you would shuffle a deck
+		java.util.Collections.shuffle(list);
+
+		//create pane for cards to be displayed
+		Pane pane = new HBox(10);
+		pane.setPadding(new Insets(20.5));
+
+		//get three card images from list.get method
+		Image image = new Image("card/" + list.get(0) + ".png");
+		//add image view to the pane
+		pane.getChildren().add(new ImageView(image));
+
+		Image image2 = new Image("card/" + list.get(1) + ".png");
+		pane.getChildren().add(new ImageView(image2));
+
+		Image image3 = new Image("card/" + list.get(2) + ".png");
+		pane.getChildren().add(new ImageView(image3));
+
+		//new scene
+		Scene scene = new Scene(pane);
+		//place scene on stage
+		primaryStage.setScene(scene);
+		//display stage to show the cards
+		primaryStage.show();
+
+	}
+	//main only needed for launch
+	public static void main(String[] args) {
+		Application.launch(args);
+	}
+
+}
